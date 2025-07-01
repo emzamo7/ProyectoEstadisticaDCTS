@@ -1,0 +1,122 @@
+# Preprocesamiento de datos
+install.packages("tidyverse") # En este caso, voy a usar la biblioteca tidyverse
+library(tidyverse)
+
+# Cargando el dataset
+
+data <- read.csv("C:/Users/emman/Downloads/archive/mexico_crime.csv")
+
+# Explorando
+dim(data) # dim nos sirve para conocer las dimensiones del dataset: 332416 filas, 9 columnas
+head(data)
+
+# Las columnas son: year, entity_code, entity, affected_legal_good, type_of_crime,
+# subtype_of_crim, modality, momth y count.
+
+
+summary(data)
+
+library(lubridate)  
+library(janitor)  
+library(scales)  
+library(patchwork)
+library(readr)
+
+crime <- read_csv("C:/Users/emman/Downloads/archive/mexico_crime.csv") %>%  
+  clean_names()  #Limpiar y estandarizar la columnas (nombres)
+glimpse(crime)  # Un vistazo a nuestro dataset
+
+year_tot <- crime %>%  
+  group_by(year) %>%  
+  summarise(total = sum(count, na.rm = TRUE))  # Aqui estoy usando este operador. Lo estoy probando, es para encadenar 
+# funciones pasandose el resultado de una funcion a la siguiente como argumento principal.
+
+
+# Graficamos
+ggplot(year_tot, aes(year, total)) +  
+  geom_col(fill = "steelblue") +  
+  scale_y_continuous(labels = comma) +  
+  labs(title = "Total reported crimes, nationwide",  
+       x = NULL, y = "Incidents") +  
+  theme_minimal()  
+
+
+state_tot <- crime %>%  
+  group_by(entity) %>%  
+  summarise(total = sum(count, na.rm = TRUE)) %>%  
+  arrange(desc(total))  
+
+top10_states <- state_tot %>% slice_head(n = 10)
+
+ggplot(top10_states,  
+       aes(reorder(entity, total), total)) +  
+  geom_col(fill = "firebrick") +  
+  coord_flip() +  
+  scale_y_continuous(labels = comma) +  
+  labs(title = "Top-10 states by total crime counts (2015--)",  
+       x = NULL, y = "Incidents") +  
+  theme_minimal()  
+
+type_tot <- crime %>%  
+  group_by(type_of_crime) %>%  
+  summarise(total = sum(count, na.rm = TRUE)) %>%  
+  arrange(desc(total))  
+
+ggplot(type_tot,  
+       aes(reorder(type_of_crime, total), total)) +  
+  geom_col(fill = "darkorchid") +  
+  coord_flip() +  
+  scale_y_continuous(labels = comma) +  
+  labs(title = "Crime counts by major type",  
+       x = NULL, y = "Incidents") +  
+  theme_minimal()  
+
+#Ahora solo me enfocare a la CDMX
+target_state <- "Ciudad de México" 
+
+state_mix <- crime %>%  
+  filter(entity == target_state) %>%  
+  group_by(type_of_crime) %>%  
+  summarise(total = sum(count, na.rm = TRUE)) %>%  
+  mutate(pct = total / sum(total)) #  mutate me ayuda a crear una nueva columna llamada pct 
+# Aqui estoy usando filter, para seleccionar filas del dataset. entity == target_state es mi condicion logica: solo se conservaran las filas donde el valor de la columna entity sea igual al valor de la variable target_state.
+# ya con summarise, veo un nuevo resumen del DF. En sum, calculo la suma total de la columna count, y na.rm = TRUE indico que los valores NA (faltantes) se ignoren al sumar.
+ggplot(state_mix,  
+       aes(x = "", y = pct, fill = type_of_crime)) +  
+  geom_col(width = 1, color = "white") +  
+  coord_polar(theta = "y") +  
+  scale_y_continuous(labels = percent) +  
+  labs(title = paste("Crime-type composition in", target_state),  
+       fill = "Crime type") +  
+  theme_void()  
+#Viendo que onda de manera grafica en un pastel.
+#Viendo que rollo ahora de manera nacional
+nation_mix <- crime %>%  
+  group_by(year, type_of_crime) %>%  
+  summarise(total = sum(count, na.rm = TRUE)) %>%  
+  group_by(year) %>%  
+  mutate(pct = total / sum(total))
+#Graficamos de manera de barras y mapa de calor (con los colores) 
+ggplot(nation_mix,  
+       aes(year, pct, fill = type_of_crime)) +  
+  geom_col() +  
+  scale_y_continuous(labels = percent) +  
+  labs(title = "Changing crime-type composition nationwide",  
+       x = NULL, y = "Share of incidents",  
+       fill = "Crime type") +  
+  theme_minimal()
+
+crime <- crime %>%  
+  mutate(month_num = match(month, month.name))  
+
+heat <- crime %>%  
+  group_by(year, month_num) %>%  
+  summarise(total = sum(count, na.rm = TRUE))  
+#Ahora, con un mapa de calor veo el comportamiento por meses , de cada anio, de los incidentes.
+ggplot(heat, aes(month_num, year, fill = total)) +  
+  geom_tile(color = "grey70") +  
+  scale_x_continuous(breaks = 1:12, labels = substr(month.name,1,3)) +  
+  scale_fill_viridis_c(option = "plasma", labels = comma) +  
+  labs(title = "Seasonality heat-map (all crimes)",  
+       x = "Month", y = "Year", fill = "Incidents") +  
+  theme_minimal() 
