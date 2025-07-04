@@ -134,16 +134,16 @@ pop <- read_csv("C:/Users/emman/Downloads/INEGI_cleaned.csv") %>%
 head(pop)
 pop
 str(pop)
-# Si solo tienes datos de 2020, agrega la columna de año:
+# Solo se tienen los datos de 2020, agregamos la columna de año:
 pop <- pop %>%
   mutate(year = 2020) %>%
   select(entity, year, total) 
-crime_2020
+
 crime_2020 <- crime %>%
   filter(year == 2020) %>%
   group_by(entity, year) %>%
   summarise(crime_total = sum(count, na.rm = TRUE))
-
+crime_2020
 crime_rate_2020 <- crime_2020 %>%
   left_join(pop, by = c("entity", "year")) %>%
   mutate(rate = crime_total / total * 1e5)
@@ -201,7 +201,7 @@ library(moments)
 skew_rate <- skewness(crime_rate_2020$rate, na.rm = TRUE)
 kurt_rate <- kurtosis(crime_rate_2020$rate, na.rm = TRUE)
 
-# Puedes crear intervalos de tasas y contar frecuencias
+# Podemos crear intervalos de tasas y contar frecuencias
 crime_rate_2020 %>%
   mutate(rate_group = cut(rate, breaks = 5)) %>%
   count(rate_group)
@@ -245,4 +245,43 @@ Q3 <- quantile(crime_rate_2020$rate, 0.75, na.rm = TRUE)
 IQR <- Q3 - Q1
 IQR
 
+#######Tasa de criminalidad por estado en México, 2020
+
+#Media nacional y contexto
+#La media nacional de la tasa de criminalidad en 2020 fue de aproximadamente 30,600 delitos por cada 100,000 habitantes.
+
+#Para homicidios, la media nacional fue de 29 homicidios por cada 100,000 habitantes.
+
+#Inferencias y observaciones
+#La media nacional es elevada en comparación internacional, ubicando a México entre los países con mayores tasas de criminalidad y homicidio del mundo.
+
+#La distribución de la tasa es asimétrica: pocos estados concentran tasas muy altas, mientras que la mayoría se ubica cerca o por debajo de la media.
+
+#La desviación estándar es alta, lo que indica una gran variabilidad entre entidades.
+
+#La pandemia de COVID-19 en 2020 influyó en la reducción de ciertos delitos (como robos y asaltos), pero la violencia letal (homicidios) se mantuvo en niveles históricamente altos
+
+#Entidades que destacan
+
+#Estado	          Tasa de criminalidad/homicidio destacada          	Observaciones principales
+#Colima	          121.9 homicidios/100,000 hab.	La más alta del país, foco de violencia organizada.
+#Baja California	55.3 homicidios/100,000 hab.	Entre las más violentas, especialmente Tijuana.
+#Guanajuato	      65   homicidios/100,000 hab.Altísima tasa de homicidios	Uno de los focos rojos nacionales.
+#Chihuahua	      51.2 homicidios/100,000 hab.	Persistente violencia ligada al crimen organizado.
+#Morelos	        67.4 homicidios/100,000 hab.	Muy por encima de la media nacional.
+#Yucatán	        1.85 homicidios/100,000 hab.	La más baja del país, ejemplo de seguridad relativa.
+#Campeche, Durango	<5 homicidios/100,000 hab.	Muy por debajo de la media nacional
+
+#Ciudad de México: Aunque concentra muchos delitos en números absolutos, su tasa de homicidios (8.7/100,000) es inferior a la media nacional.
+
+#Estados con tasas bajas: Yucatán, Campeche, Durango y Aguascalientes destacan por su baja incidencia de homicidios y delitos graves
+
+#--------------Conclusiones clave
+#Colima, Baja California, Guanajuato, Chihuahua y Morelos requieren atención prioritaria por sus tasas extremadamente altas.
+
+#Yucatán y Campeche son referentes de baja criminalidad.
+
+#La media nacional esconde grandes diferencias regionales: la política pública debe ser diferenciada y focalizada.
+
+#La alta variabilidad y presencia de outliers (estados con tasas muy superiores a la media) sugieren que los promedios nacionales no reflejan la realidad local de muchas entidades.
 
