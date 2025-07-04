@@ -168,4 +168,81 @@ ggplot(rank_tbl, aes(x = reorder(entity, rate), y = rate)) +
   ) +
   theme_minimal()
 
+#ESTADISTICA DESCRIPTIVA
+
+summary(crime_rate_2020$rate)
+#Medidas de tendencia central y dispersion
+
+# Media
+mean_rate <- mean(crime_rate_2020$rate, na.rm = TRUE)
+
+# Mediana
+median_rate <- median(crime_rate_2020$rate, na.rm = TRUE)
+
+# Moda (requiere paquete DescTools)
+if (!require(DescTools)) install.packages("DescTools")
+library(DescTools)
+mode_rate <- Mode(crime_rate_2020$rate)
+
+# Desviación estándar
+sd_rate <- sd(crime_rate_2020$rate, na.rm = TRUE)
+
+# Varianza
+var_rate <- var(crime_rate_2020$rate, na.rm = TRUE)
+
+# Rango
+range_rate <- range(crime_rate_2020$rate, na.rm = TRUE)
+
+# Cuartiles
+quantiles_rate <- quantile(crime_rate_2020$rate, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+# Asimetría y curtosis (paquete moments)
+if (!require(moments)) install.packages("moments")
+library(moments)
+skew_rate <- skewness(crime_rate_2020$rate, na.rm = TRUE)
+kurt_rate <- kurtosis(crime_rate_2020$rate, na.rm = TRUE)
+
+# Puedes crear intervalos de tasas y contar frecuencias
+crime_rate_2020 %>%
+  mutate(rate_group = cut(rate, breaks = 5)) %>%
+  count(rate_group)
+
+# Histograma
+ggplot(crime_rate_2020, aes(x = rate)) +
+  geom_histogram(bins = 15, fill = "steelblue", color = "white") +
+  labs(title = "Histograma de tasas de criminalidad (por 100,000 habitantes)",
+       x = "Tasa", y = "Frecuencia") +
+  theme_minimal()
+
+# Boxplot
+ggplot(crime_rate_2020, aes(y = rate)) +
+  geom_boxplot(fill = "orange") +
+  labs(title = "Boxplot de tasas de criminalidad", y = "Tasa") +
+  theme_minimal()
+
+# Estados con tasas atípicamente altas o bajas
+Q1 <- quantile(crime_rate_2020$rate, 0.25, na.rm = TRUE)
+Q3 <- quantile(crime_rate_2020$rate, 0.75, na.rm = TRUE)
+IQR <- Q3 - Q1
+outliers <- crime_rate_2020 %>%
+  filter(rate < (Q1 - 1.5 * IQR) | rate > (Q3 + 1.5 * IQR))
+
+resumen <- tibble(
+  Media = mean_rate,
+  Mediana = median_rate,
+  Moda = mode_rate,
+  Desviación_Estándar = sd_rate,
+  Varianza = var_rate,
+  Rango = diff(range_rate),
+  Q1 = quantiles_rate[1],
+  Q3 = quantiles_rate[3],
+  Asimetría = skew_rate,
+  Curtosis = kurt_rate
+)
+print(resumen)
+
+Q1 <- quantile(crime_rate_2020$rate, 0.25, na.rm = TRUE)
+Q3 <- quantile(crime_rate_2020$rate, 0.75, na.rm = TRUE)
+IQR <- Q3 - Q1
+IQR
+
 
