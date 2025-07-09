@@ -1,0 +1,80 @@
+---
+title: "Tendencias de Delincuencia - Mexico"
+output: html_document
+date: "2025-07-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Delitos de Alto y Bajo Impacto
+
+El término "delito de alto impacto" se ha usado bastante en los medios de comunicación, en debates de corte político y en la conversación cotidiana, pero su significado no es claro. ¿Es una etiqueta de moda para describir ciertos crímenes? ¿Tiene una base legal que lo respalda? 
+
+Como se entiende, son aquellos delitos que tienen un **efecto negativo significativo en la seguridad, la tranquilidad o el bienestar de la comunidad** (como lo cita la fuente consultada imagenpoblana.com). No existe una definición estricta en las leyes que los agrupe de forma única -sin embargo, se puede notar este tipo de clasificación en las fuentes consultadas más abajo- pero sí se hace referencia a ellos de manera general para señalar aquellos crímenes que **afectan profundamente a la sociedad**.
+En el caso de nuestro país, las autoridades suelen clasificar este tipo de delitos en categorías como **homicidios, secuestros, extorsiones, robos violentos** y lo relacionado con el **narcotráfico**. Estos generan un ambiente de **miedo e incertidumbre** en la sociedad. 
+"Alto impacto" se refiere a la **magnitud de los efectos** que estos delitos causan en la sociedad. Es una clasificación que busca reflejar un **nivel de daño**. El concepto no solo se refiere al ámbito **emocional**, sino que esta ligado a los **recursos y esfuerzos** que el sistema de justicia y las fuerzas de seguridad deben invertir para hacer frente a estos delitos, ya que se requieren **investigaciones complejas, operativos de gran escala y un nivel de coordinación** entre diversas figuras gubernamentales y organismos internacionales.
+
+Pero, el término no tiene una definición exacta en la legislación de todos los países, pero que son **prioritarios en la agenda de seguridad pública**. En el **Código Penal** se hacen menciones específicas, como el **homicidio** o la **extorsión**, pero no se les agrupa bajo esta etiqueta. Existen políticas públicas que se implementan como **estrategias especiales** para reducir la percerción de inseguridad. 
+
+El término es de uso común en la **comunicación pública** para **transmitir la gravedad del asunto** y el público **entienda la magnitud de los problemas de seguridad**. El uso del término por parte de los medios es una respuesta para contextualizar y clasificar este tipo de crímenes en un escenario más amplio, son son factores clave el **impacto social y el miedo colectivo**, por eso el uso de este concepto responde a un requerimiento de abordar con seriedad los delitos que afectan de forma profunda a la población. 
+
+
+
+https://imagenpoblana.com/25/02/05/delitos-de-alto-impacto--mas-que-una-etiqueta-un-reflejo-de-la-inseguridad-social
+
+Para el caso de este ejercicio, se hizo una consulta hemerográfica y de organismos de la sociedad civil para entender este concepto. Como vimos arriba, el medio \url{imagenpoblana.com}, nos brinda una introducción de lo que es. El medio El Financiero nos lo describe de la siguiente forma en su nota de junio 12 de 2016: "Los delitos de alto impacto se refieren a lesiones con arma de fuego, homicidio, robo de vehículo, a casa, a transeúnte, transportista, repartidor, cuentahabiente, secuestro, violación, homicidio y los de bajo impacto son por daño en propiedad ajena, abuso y hostigamiento sexual, lesiones dolosas y culposa y robo en general de autopartes, comensales, etcétera."
+Fuente:
+https://www.elfinanciero.com.mx/nacional/incrementan-delitos-de-alto-y-bajo-impacto-en-la-ciudad-de-mexico/
+
+Este concepto, como veremos más adelante, cambiará para los últimos 4 años, según los reportes de las Asociaciones Civiles, como el Observatorio Nacional Ciudadano, que en el reporte emitido en el 2017 hace un análisis de cada delito que se consideraba de alto impacto **y en tasas por cada 100 mil habitantes**, lo cual esta es una constante que se notó en los reportes ciudadanos consultados y que se trató en la reunión con el profesor. Lo presentado en este reporte fue de esta manera: 
+
+1) homicidio doloso
+  a) Arma de fuego
+  b) Arma Blanca
+  c) otros
+2) Homicidio Culposo
+  a) Arma blanca
+  b) Arma de fuego
+  c) Otros
+3) Secuestro
+  a) Fuero federal
+  b) Fuero Común
+4) Extorsión
+5) Robo con violencia
+  a) Robo en carreteras
+  b) Robo en instituciones bancarias
+  c) Robo común
+6) Robo de vehículo
+  a) Con violencia
+  b) Sin violencia
+7) Robo a casa habitación
+  a) Sin violencia
+  b) Con violencia
+8) Robo a negocio
+  a) Sin violencia
+  b) Con violencia
+9) Robo a transeúnte
+  a) Sin violencia
+  b) Con violencia
+10) Violación
+
+<!-- #"Si comparamos lo sucedido en 2016 respecto a 2017, las tasas **por cada 100 mil #habitantes** de homicidio doloso crecieron 22.08%, de homicidio culposo 3.06%, de #extorsión 6.17%, de robo con violencia 34.13%, de robo de vehículo 14.37%, de robo a #casa habitación 0.27%, de robo a negocio 27.76%, de robo a transeúnte 24.00%. Por #su parte, dismunuyó 5.22 % la tasa de secuestro (fuero común y federal) y 2.58% la de #violación. Esto evidencia que ocho de los 10 delitos de alto impacto que analizamos en el #ONC incrementaron en el ámbito nacional."-->
+Fuente: 
+https://onc.org.mx/public/onc_site/uploads/PDF_dic17_final.pdf
+
+Con un reporte reciente, de mexicoevalua.org, el concepto de __Delito de Alto Impacto__ ya considera, por ejemplo, el **Feminicidio, narcomenudeo y robo a transportista**: "En este reporte analizamos el comportamiento anual de los delitos registrados por el Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP) vinculados a las actividades del crimen organizado y que, por dicho motivo, cuentan con mayor impacto político, económico y social: extorsión, homicidio doloso, feminicidio, narcomenudeo, secuestro, robo de vehículo, robo a transportista y robo a negocio." <!--**Este reporte coincide con los datos que se descargo de kaggle **-->
+Fuente:
+https://www.mexicoevalua.org/wp-content/uploads/2025/02/reporte-anual-incidencia-delictiva.pdf
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
