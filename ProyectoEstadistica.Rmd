@@ -68,6 +68,11 @@ Con un reporte reciente, de mexicoevalua.org, el concepto de __Delito de Alto Im
 Fuente:
 https://www.mexicoevalua.org/wp-content/uploads/2025/02/reporte-anual-incidencia-delictiva.pdf
 
+## Documentación en Artículos
+
+El trabajo de Vlad et al. (2023) (Vlad, I. T., Diaz, C., Juan, P., & Chaudhuri, S. (2023). Analysis and description of crimes in Mexico city using point pattern analysis within networks. Annals of GIS, 29(2), 243–259. https://doi.org/10.1080/19475683.2023.2166108) hacen un análisis de tres tipos de crímenes considerados de alto impacto: **Homicidio, violación y robo violento**. Su comparativa es para los años 2018 y 2019, con mapas de calor de la Ciudad de México.  Este trabajo me da un punto de partida para el presente análisis. Otro aspecto a destacar es que hacen una mención del **número de crímenes por 100,000 habitantes**, que es "mucho más pequeño que en otras ciudades del país, tal como Cd Juarez o Tijuana", para los años analizados. 
+
+
 
 ## Including Plots
 
