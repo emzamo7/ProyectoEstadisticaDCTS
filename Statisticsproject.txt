@@ -1,0 +1,7 @@
+Se descargo un nuevo dataset de:
+
+https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva
+cuya leyenda dice:
+"Cifras de Incidencia Delictiva Municipal, 2015 - mayo 2025 Importante: Debido al tamaño del archivo este no puede ser cargado en una hoja de cálculo (Excel o Calc), para descargar los archivos compatibles con estos programas utilice el siguiente enlace:  
+https://drive.usercontent.google.com/download?id=13NsQPOTvw_BU6nNpOpCLJzOngzic96jK&export=download&authuser=0"
+siendo este y eligiendo el archivo 2020.xlsx, con el que se trabajo
