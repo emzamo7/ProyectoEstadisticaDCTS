@@ -1,0 +1,54 @@
+---
+title: "Untitled"
+author: "Emmanuel Zamora"
+date: "2025-07-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Conteo de delitos en losEstados en regiones economicas
+
+# Region Noroeste
+
+
+
+![Promedio anual del conteo de delitos en Baja California 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosBC.png)
+
+![Promedio anual del conteo de delitos en Baja California  Sur2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosBCS.png)
+![Promedio anual del conteo de delitos en Sonora 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosSonora.png)
+![Promedio anual del conteo de delitos en Sonora 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosSinaloa.png)
+
+![Promedio anual del conteo de delitos en Nayarit 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosNayarit.png)
+
+# Region Norte
+
+![Promedio anual del conteo de delitos en Coahuila 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosCoahuila.png)
+![Promedio anual del conteo de delitos en Chihuahua 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosChihuahua.png)
+![Promedio anual del conteo de delitos en Durango 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosDurango.png)
+![Promedio anual del conteo de delitos en Zacatecas 2015 - 2024](C:/Users/emman/OneDrive/Documents/EstadisticaGerardo/StatisticsPRoject/PromedioAnualConteoDelitosZacatecas.png)
+
+Estadísticas de delitos por región: Noroeste
+A continuación se presenta el desglose de los promedios anuales de los principales delitos para los estados que conforman la región económica del Noroeste de México: Baja California, Sonora, Sinaloa, Nayarit y Baja California Sur.
+
+Delitos promedio anual por estado (últimos 10 años)
+
+| Estado               | Delito más frecuente      | Promedio anual (media)      |
+|----------------------|--------------------------|-----------------------------|
+| Baja California      | Robo                     | 38,162                      |
+| Sonora               | Robo                     | 9,197                       |
+| Sinaloa              | Robo                     | 8,456                       |
+| Nayarit              | Violencia familiar       | 1,108                       |
+| Baja California Sur  | No se proporcionaron datos | -                         |
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
