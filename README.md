@@ -2,4 +2,4 @@ Proyecto de Estadistica
 Dr. Gerardo Hernandez
 Emmanuel Zamora
 
-Se trabaja con el dataset mexico_crime.csv, descargado de kaggle.com. Igual se bajo los datos de censo del anio 2020 del INEGI, para hacer un indice de criminalidad. 
+Se trabaja con el dataset de la pagina de gob y portal del INEGI para la poblacion.
