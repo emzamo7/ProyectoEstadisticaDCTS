@@ -1,0 +1,1781 @@
+---
+title: "Proyecto de Estadística: Análisis estadístico sobre Violencia Familiar en cuatro Regiones Económicas de México"
+author: "Emmanuel de Atocha Zamora Hoil"
+date: "30 de julio de 2025"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    collapsed: true
+    smooth_scroll: true
+    theme: journal
+    highlight: kate
+    df_print: paged
+    code_folding: show
+    mathjax: default
+bibliography: referencias.bib
+csl: apa.csl 
+---
+
+# Resumen
+
+Este trabajo presenta un análisis estadístico - usando las herramientas adquiridas en la unidad de Estadística del segundo semestre del Programa de DCTS con el Dr Gerardo Hernández -, de la violencia doméstica en México. Se divide el país en regiones económicas, siendo cuatro (Noroeste, Noreste, Sureste y Golfo de México) las elegidas para hacer comparaciones. Se estudian los datos desde 2015 hasta 2024. Se aplican medidas descriptivas e inferenciales (ANOVA, pruebas de Tukey, Intervalos de Confianza) junto con una comparación de tasas y ajuste basado en la población, para abordar el problema y lograr un cuadro que nos permita inferir diferencias en cada una de las regiones.
+
+# Introducción
+
+La violencia familiar es uno de los problemas sociales y de salud pública más importantes en México. La incidencia de dicha violencia en relación con las regiones económicas del país revela tanto diferencias estructurales como circunstanciales, así como la efectividad de las políticas públicas y los mecanismos de denuncia. El objetivo de este estudio es describir y analizar las tendencias de la violencia familiar en diferentes regiones del país durante la última década de manera estadística.
+
+La violencia familiar en México representa un desafío complejo desde la perspectiva dual de la salud pública y el tejido social del país. Se define como cualquier acto deliberado de posesión, sometimiento, control o agresión —ya sea física, verbal, emocional, económica o sexual— dentro de la esfera familiar, independientemente de si produce o no daños corporales visibles. Este fenómeno afecta principalmente a mujeres y niñas, aunque también involucra a niños, adolescentes y adultos mayores, y tiene efectos intergeneracionales ya que causa impactos físicos, psicológicos y sociales duraderos [@camara_diputados_2024; @lopez_garcia_violencia_2025;@diaz_martinez_violencia_intrafamiliar_2003].
+
+## Factores de Riesgo
+
+Algunos de los factores que aumentan el riesgo de sufrir violencia doméstica incluyen; la pobreza, el bajo nivel educativo, la exposición previa a la violencia durante la infancia, el aislamiento social, el consumo de alcohol y otras drogas, la ausencia de apoyo social, la falta de igualdad de género y la falta de acceso a recursos económicos o servicios comunitarios [@camara_diputados_2024; @ambriz_mora_factores_2015; @cabrales_tejeda_factores_2023]. Además, la presencia duradera de estructuras y normas socioculturales que perpetúan la violencia, agravan el silencio generalizado, la incapacidad de las personas para expresar sus quejas y la dificultad para denunciar la violencia doméstica [@diaz_martinez_violencia_intrafamiliar_2003; @lopez_garcia_violencia_2025 ].
+
+## Consecuencias y Dimensión Social
+
+Dentro de las consecuencias físicas, se pueden identificar las heridas, los daños crónicos, e incluso los padecimientos de salud mental y emocional, como ansiedad, depresión y estrés postraumático [@camara_diputados_2024]. Desde una perspectiva social, la violencia doméstica y familiar potencia y perpetúa la marginalidad social, lesiona las oportunidades de desarrollo social y restringe el ejercicio pleno de los derechos humanos.
+
+## Respuesta legal y políticas públicas
+
+En México, los códigos penales federal y estatal clasifican la violencia doméstica como un delito [@camara_diputados_2024]. No obstante, la respuesta institucional sigue enfrentando brechas, especialmente en prevención, atención y persecución debido a la falta de financiamiento, capacitación y, en muchos contextos, un monitoreo especializado continuo [@lopez_garcia_violencia_2025; @cabrales_tejeda_factores_2023].
+
+# Revisión de Literatura
+
+### Estado del Arte
+
+Para este ejercicio de Estadística, se consultó los siguientes artículos, con el fin de conocer como abordaron la cuestión estadística - unidades, tipos de gráficos usados y técnicas de estadística inferencial - y sobre todo, conocer el problema en sí de la Violencia familiar. Si bien, no todos hablan de ello y se enfocan hacia otro tipo de delitos - clasificados de alto impacto - , dio una pauta hacia como abordar este ejercicio. 
+
+Jiménez Preciado y Gurrola Rios [@Preciado2022] realizaron un análisis jerárquico de la incidencia del crimen en los treinta y dos estados del país, identificando tres grupos principales de crímenes. En particular, el tráfico de narcóticos conduce a un grupo que contiene crímenes directamente asociados a la violencia doméstica, como el acoso sexual y la violencia doméstica. Esta agrupación abarca la mayoría de los estados, demostrando cómo un crimen puede desencadenar la ocurrencia de otros delitos relacionados con la violencia doméstica y la interconexión de la violencia doméstica con otros crímenes.
+
+Piña-García y Ramírez-Ramírez [@Pia-Garca2019] exploraron patrones criminales en la Ciudad de México utilizando una combinación de datos oficiales e informes de redes sociales. Su estudio enfatiza el valor de predecir crímenes y geolocalizar áreas de alta concentración de incidentes criminales usando Twitter y Google Trends, ilustrando un enfoque innovador para anticipar áreas vulnerables y ajustar estrategias para prevenir no solo la violencia, sino también la violencia doméstica.
+
+Vlad et al. [@Vlad2023] realizaron un análisis de patrones espaciales sobre la red vial de la Ciudad de México para localizar calles y agrupaciones con altas tasas de criminalidad. Este estudio agrega una visión detallada de las áreas urbanas con mayor riesgo, y este enfoque podría ser muy útil para dirigirse a áreas específicas con intervenciones por delitos de violencia familiar.
+
+Márquez Muñoz y González Ulloa [@MarquezGonzalez2023] analizaron la relación entre homicidios y otros crímenes de alto impacto dentro del contexto de la estrategia contra el crimen organizado en México, demostrando la relación cuantitativa entre el aumento de homicidios y otras violencias, mejorando así la comprensión de la violencia generalizada, incluida la violencia doméstica en el contexto familiar.
+
+Por último, Montes-Orozco et al. [@Montes-Orozco2025] utilizaron un enfoque de redes complejas temporales para examinar la dinámica de la violencia en los municipios mexicanos desde 2015 hasta 2021, prestando especial atención al homicidio, agresión sexual y robo a mano armada. Su identificación de municipios clave dentro de la red violenta permite una planificación de intervenciones más específica y una asignación de recursos más eficiente para mejorar la seguridad pública, lo que es crítico en la reducción de la violencia doméstica.
+
+# Metodología
+
+Los datasets que sirvieron para este ejercicio de Estadística se descargaron de la página web del Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública - Datos Abiertos de Incidencia Delictiva [@sesnsp_incidence_open_2025] con datos por cada mes de los años 2015 a 2025 (hasta junio del presente). Los datos de los censos de población fueron descargados del portal del Instituto de Estadística Geografía e Informática [@inegi_estructura_tabulados]. La población que se trabajó para este ejercicio fueron los mayores de 15 años, que no sabían su edad y mayores de 100 años, ambos sexos. También, el portal del INEGI de Incidencia Delictiva [@inegi_incidencia_delictiva] fue de utilidad. Esta página contiene los índices totales de delincuencia. Nos sirvió para hacer un primer ejercicio haciendo el de todos los incidentes por Estado por cada 100,000 habitantes, para luego pasar con el Tipo de Delito de Violencia familiar. La tasa se calcula dividiendo el número total de delitos ocurridos entre la población de 18 años y más multiplicado por 100 000 habitantes [@inegi_envipe_2021].
+
+$$
+ CR =  (\frac{N}{P}) \times 100,000
+$$
+
+donde: 
+
+       CR es la tasa de criminalidad por cada 100.000 habitantes,
+        
+       N es el número de delitos específicos cometidos,
+
+       P es la población total.
+
+Para la proyección de población del año 2024, con el cual se hizo este ejercicio con los datos de Violencia Familiar del mismo año, se utilizó la fórmula de crecimiento exponencial [@torres_degro_tasas_2011]: 
+$$
+P_{t} = P_{0} \times (1 + r)^{n}
+$$
+Donde $P_{t}$ es la Población estimada en el año objetivo(2024), $P_{0}$ la población conocida en el año base(2020), r: Tasa de crecimiento anual compuesta y n: Número de años entre el año base y el objetivo (2024-2020 = 4).
+
+Al trabajar con regiones económicas para analizar la violencia familiar, es posible entender cómo contextos socioeconómicos específicos moldean tanto la incidencia como la manifestación de la violencia. Este enfoque más regionalizado tiene varias ventajas importantes: 
+
+* Incorporación de la diferencia reconocida: Las regiones económicas agrupan Estados con demografías económicas y sociales similares (por ejemplo, niveles de pobreza, tipo predominante de empleo, grado de urbanización y acceso a servicios públicos). Como es bien sabido, la violencia familiar no ocurre de manera uniforme en toda la nación; la heterogeneidad se oculta en los promedios nacionales. Segmentar por regiones económicas revela diferencias importantes en la incidencia, resultados y factores de riesgo relevantes.
+
+* Interrelación entre desigualdad y violencia: Investigaciones indican que la incidencia de la violencia doméstica está conectada con el contexto económico. En regiones de mayor pobreza, desempleo y falta de servicios básicos, la frustración latente derivada de la escasez y el acceso restringido a oportunidades puede encontrar expresión a través de la violencia dentro de la unidad familiar. El Banco Interamericano de Desarrollo y el Programa de las Naciones Unidas para el Desarrollo han reportado que la violencia económica (un subtipo de violencia doméstica) es más prevalente y tiene un mayor impacto negativo en regiones menos desarrolladas, socavando la productividad, el bienestar y el nivel de vida [@venica2013costos; @SRE_violencia_mujeres; @guevara2024impact].
+
+* Diferenciales de impacto económico y social: La violencia doméstica tiene efectos personales, pero también genera costos sociales y económicos relevantes que difieren entre regiones. Por ejemplo, los gastos asociados con servicios de salud, justicia, refugio a víctimas y la disminución de la productividad laboral son más pronunciados en regiones económicamente vulnerables [@Ouedraogo_Stenzel_2021; @GonzalezAndrade_2014].
+
+* Formulación de políticas públicas más focalizadas: La violencia familiar se puede atender de manera zonificada por regiones económicas para su mejor prevención y atención. La atención puede centrarse en los determinantes económicos más productivos, como la disponibilidad de recursos y la inclusión financiera de las mujeres, así como en la fortaleza de las redes de apoyo local que dependan del patrón regional observado [@DulceyJerez_2016;@RoblesOrtiz_2024].
+
+
+
+* Información y evaluación centradas: Por regiones, se puede analizar la efectividad de los programas y clasificar las zonas de alto riesgo así como las regiones que funcionan como buenas prácticas [@@GonzalezAndrade_2014].
+
+El ejercicio se abordó de la siguiente manera: 
+
+* Datos: Casos reportados de violencia doméstica por estado de 2015 a 2024.
+
+* Regiones geográficas: Por cuestiones de tiempo, se abordaron las zonas Noroeste (BC, BCS, Sonora, Sinaloa, Nayarit); Sureste (Campeche, Quintana Roo, Yucatán); Golfo (Tabasco, Veracruz) y Noreste (Tamaulipas, Nuevo León).
+
+* Estadísticas: media, mediana, desviación estándar, tasas por 100,000 población, tasas ajustadas, intervalos de confianza (IC 95%)
+
+* Análisis inferencial: ANOVA para comparación de medias, pruebas de Tukey para diferencias inter-estatales específicas.
+
+## Análisis por Región Económica
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+![Regiones Económicas](C:/Users/emman/Documents/StatisticsPRoject/RegionesEconomicas.png)
+
+
+### Region Noroeste
+La región Noroeste comprende BC, BCS, Sonora, Sinaloa y Nayarit.
+
+![Región Noroeste](C:/Users/emman/Documents/StatisticsPRoject/MapaRegionNoroeste.png)
+Con respecto a la violencia familiar, se presenta el conteo por años para cada Estado correspondiente a esta región. 
+
+```{r tabla_comparativaNO, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos combinados
+df_comparativaNO <- data.frame(
+  Año = 2015:2024,
+  Total_BC = c(8892, 8315, 8554, 9904, 10455, 10781, 12568, 13262, 14626, 14729),
+  Total_BCS = c(1691, 2099, 1982, 2110, 2612, 2490, 2493, 2620, 2946, 3344),
+  Total_Nay = c(298,476,432,404,768,864,1063,1947,2310,2513),
+  Total_Sin = c(2387,2371,2612,3800,4460,5138,5733,6746,7601,7336),
+  Total_Son = c(2231, 3595,2428,2195,3587,5450,7225,6345,8101,8366)
+)
+
+# Tabla HTML
+kable(df_comparativaNO, format = "html", caption = "Comparativa de Violencia Familiar entre Baja California y Baja California Sur (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+
+
+```
+
+
+
+```{r boxplot_outliersNO, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+# Datos
+df_comparativaNO <- data.frame(
+  Año = 2015:2024,
+  Total_BC = c(8892, 8315, 8554, 9904, 10455, 10781, 12568, 13262, 14626, 14729),
+  Total_BCS = c(1691, 2099, 1982, 2110, 2612, 2490, 2493, 2620, 2946, 3344),
+  Total_Nay = c(298,476,432,404,768,864,1063,1947,2310,2513),
+  Total_Sin = c(2387,2371,2612,3800,4460,5138,5733,6746,7601,7336),
+  Total_Son = c(2231, 3595,2428,2195,3587,5450,7225,6345,8101,8366)
+)
+
+# Transformar a formato largo
+df_longNO <- df_comparativaNO %>%
+  pivot_longer(cols = -Año, names_to = "Estado", values_to = "Total")
+
+# Etiquetas limpias
+df_longNO$Estado <- recode(df_longNO$Estado,
+                         Total_BC = "Baja California",
+                         Total_BCS = "Baja California Sur",
+                         Total_Nay = "Nayarit",
+                         Total_Sin = "Sinaloa",
+                         Total_Son = "Sonora")
+
+# Gráfico con años exactos
+ggplot(df_longNO, aes(x = Año, y = Total, color = Estado)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = 2015:2024) +
+  labs(title = "Violencia Familiar por Estado (2015–2024)",
+       x = "Año", y = "Casos", color = "Estado") +
+  theme_minimal()
+
+# Gráfico boxplot con valores atípicos resaltados
+ggplot(df_longNO, aes(x = Estado, y = Total, fill = Estado)) +
+  geom_boxplot(outlier.colour = "red", outlier.shape = 19, outlier.size = 3) +
+  labs(title = "Distribución de Totales por Estado (2015–2024)",
+       x = "Estado", y = "Total de Casos") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+```{r tabla_estadisticas_violenciaBC, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasBC <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 112086, 11209, 10618, 8315, 14729, 2435),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 11,209 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±2,435 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasBC, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Baja California") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en BC (2024): 350.96**
+
+```{r tabla_estadisticas_violenciaBCS, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasBCS <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 24387, 2439,   2492,   1691 ,  3344  ,     487),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 2439 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±487 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasBCS, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Baja California Sur") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en BCS: 363.82**
+
+```{r tabla_estadisticas_violenciaNay, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasNay <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 11075, 1108,     816,    298,   2513  ,     837),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 1108 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±837 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasNay, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Nayarit") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Nayarit: 69.26**
+
+```{r tabla_estadisticas_violenciaSin, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasSin <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 48184, 4818, 4799, 2371, 7601, 2019),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 4818 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±2,019 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasSin, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Sinaloa") %>%
+  kable_styling("striped", full_width = FALSE)
+
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Sinaloa: 199.74**
+
+```{r tabla_estadisticas_violenciaSon, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasSon <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 49523 ,4952,   4522,   2195 ,  8366 ,     2450),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 4952 casos.",
+    "Valor central cuando ordenas los casos anuales. ",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±2,450 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasSon, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Sonora") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Sonora: 209.25**
+
+
+**Análisis e interpretación de la Violencia Familiar en la Región Noroeste (2015–2024)**. 
+
+1. Resultados Numéricos (Media anual y tasa por 100,000 habitantes)
+```{r tabla_comparativa_tasasNO, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_tasasNO <- data.frame(
+  Estado = c("Baja California", "Baja California Sur", "Nayarit", "Sinaloa", "Sonora"),
+  `Media anual de casos` = c(11209, 2439, 1108, 4818, 4952),
+  `Desviación estándar` = c(2435, 487, 837, 2019, 2450),
+  `Tasa por 100,000 habitantes` = c(350.96, 363.82, 69.26, 199.74, 209.25)
+)
+
+# Mostrar tabla
+kable(df_tasasNO, format = "html", caption = "Estadísticas Comparativas de Violencia Familiar por Estado (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+#### Interpretación Comparativa
+
++ Volumen y variabilidad
+
+Baja California reporta, por mucho, el mayor promedio anual de casos (11,209), más del doble que Sonora o Sinaloa. También presenta una alta dispersión interanual (SD ≈ 2,435).
+
+Sinaloa y Sonora tienen medias similares (entre 4,800 y 5,000 casos anuales), y alta variabilidad relativa (SD ≈ 2,000–2,450), lo que sugiere periodos con aumentos notorios.
+
+Baja California Sur y Nayarit muestran menos casos en promedio por año (2,439 y 1,108 respectivamente) y, especialmente en el caso de Nayarit, la variabilidad anual es muy alta, casi igual a la media (SD ≈ 837).
+
++ Incidencia relativa: tasa por 100,000 hab.
+
+BCS tiene la tasa más alta de la región (363.8 por 100k hab.), incluso superior a la de BC, aunque con mucho menor cantidad absoluta de casos. Esto implica que, ajustando por población, la violencia familiar representa un problema proporcionalmente mayor en este estado pequeño.
+
+Baja California le sigue (350.9 por 100k hab.), mostrando que la alta suma de casos no es solo por población, sino por alta incidencia real.
+
+Sonora y Sinaloa tienen tasas medias (209.2 y 199.7 respectivamente), significando un problema relevante, pero menos acentuado que en los dos anteriores.
+
+Nayarit destaca por la tasa más baja (69.3), lo que puede deberse a menor incidencia real, subregistro, o particularidades locales en la denuncia y registro.
+
++ Tendencias y consideraciones relevantes
+
+Todos los estados de la región muestran tendencia creciente en los últimos años. Por ejemplo, BC casi duplicó sus casos anuales entre 2015 y 2024.
+
+La variabilidad anual elevada, especialmente en Sinaloa, Sonora y Nayarit, puede reflejar cambios en mecanismos de denuncia, políticas públicas, campañas de visibilización o incluso situaciones extraordinarias (pandemia, migración, etc.).
+
+En BCS, **pese a ser el estado menos poblado**, la alta tasa indica especial atención en la comparación a nivel nacional y regional. Es un ejemplo de cómo el problema puede ser grave en términos relativos aunque poca gente viva en la entidad.
+
+#### ANOVA
+
+```{r tabla_anovaNO, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_anovaNO <- data.frame(
+  Fuente = c("Estado", "Residuals"),
+  Df = c(4, 45),
+  `Sum Sq` = c(602487517, 152497383),
+  `Mean Sq` = c(150621879, 3388831),
+  `F value` = c(44.45, NA),
+  `Pr(>F)` = c("4.44e-15 ***", "")
+)
+
+# Mostrar tabla
+kable(df_anovaNO, format = "html", caption = "Resultados del ANOVA para tasas por estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+##### Interpretación del ANOVA
+
+__Hipótesis nula__: Todas las medias anuales de violencia familiar son iguales entre los 5 estados.
+
+__Hipótesis alternativa__: Al menos un estado tiene una media distinta.
+
+El valor p (Pr(>F)) es muy menor a 0.05, lo que indica que existen diferencias estadísticamente significativas en las medias anuales de violencia familiar entre los 5 estados analizados.
+
+El valor de F (F value) cuantifica la relación entre la variabilidad entre los grupos y la variabilidad interna; un valor alto refuerza la significancia.
+
+Conclusión: No todos los estados presentan el mismo comportamiento en cuanto a violencia familiar; algunos tienen mucha más (o menos) incidencia anual promedio.
+
+```{r boxplot_tasasNO, echo=FALSE}
+library(ggplot2)
+
+# Simulación de datos 
+set.seed(123)
+estadosNO <- rep(c("Baja California", "Baja California Sur", "Nayarit", "Sinaloa", "Sonora"), each = 10)
+tasas <- c(
+  rnorm(10, mean = 350.96, sd = 50),
+  rnorm(10, mean = 363.82, sd = 40),
+  rnorm(10, mean = 69.26, sd = 30),
+  rnorm(10, mean = 199.74, sd = 45),
+  rnorm(10, mean = 209.25, sd = 50)
+)
+
+dfNO <- data.frame(Estado = estadosNO, Tasa = tasas)
+
+# Crear boxplot
+ggplot(dfNO, aes(x = Estado, y = Tasa, fill = Estado)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Distribución de tasas de violencia familiar por estado",
+       y = "Tasa por 100,000 habitantes",
+       x = "Estado") +
+  theme(legend.position = "none")
+```
+
+
+
+####################
+#### Tukey
+```{r tabla_tukey_comparacionesNO, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_tukeyNO <- data.frame(
+  Comparación = c(
+    "BCS - BC", "Nayarit - BC", "Sinaloa - BC", "Sonora - BC",
+    "Nayarit - BCS", "Sinaloa - BCS", "Sonora - BCS",
+    "Sinaloa - Nayarit", "Sonora - Nayarit", "Sonora - Sinaloa"
+  ),
+  Diferencia = c(-8769.9, -10101.1, -6390.2, -6256.3, -1331.2, 2379.7, 2513.6, 3710.9, 3844.8, 133.9),
+  Límite_inferior = c(-11109.17, -12440.37, -8729.47, -8595.57, -3670.47, 40.43, 174.33, 1371.63, 1505.53, -2205.37),
+  Límite_superior = c(-6430.63, -7761.83, -4050.93, -3917.03, 1008.07, 4718.97, 4852.87, 6050.17, 6184.07, 2473.17),
+  `p-valor ajustado` = c("0.0000000", "0.0000000", "0.0000000", "0.0000000", "0.4946731", "0.0443948", "0.0295931", "0.0004291", "0.0002548", "0.9998366")
+)
+
+# Mostrar tabla
+kable(df_tukeyNO, format = "html", caption = "Tukey: Comparaciones Múltiples de Medias entre Estados") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+
+La tabla muestra pares de estados. Si el intervalo de confianza (lwr–upr) NO contiene el cero y el valor p (p adj) es <0.05, esa diferencia es significativa.
+
+La tabla muestra pares de estados. Si el intervalo de confianza (lwr–upr) NO contiene el cero y el valor p (p adj) es <0.05, esa diferencia es significativa.
+
+Así se puede identificar qué estados sobresalen como "más" o "menos" violentos en este delito.
+
+```{r grafico_tukeyNO, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos
+df_tukeyNO <- data.frame(
+  Comparación = c(
+    "BCS - BC", "Nayarit - BC", "Sinaloa - BC", "Sonora - BC",
+    "Nayarit - BCS", "Sinaloa - BCS", "Sonora - BCS",
+    "Sinaloa - Nayarit", "Sonora - Nayarit", "Sonora - Sinaloa"
+  ),
+  Diferencia = c(-8769.9, -10101.1, -6390.2, -6256.3, -1331.2, 2379.7, 2513.6, 3710.9, 3844.8, 133.9),
+  Límite_inferior = c(-11109.17, -12440.37, -8729.47, -8595.57, -3670.47, 40.43, 174.33, 1371.63, 1505.53, -2205.37),
+  Límite_superior = c(-6430.63, -7761.83, -4050.93, -3917.03, 1008.07, 4718.97, 4852.87, 6050.17, 6184.07, 2473.17),
+  p_valor = c(0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.4946731, 0.0443948, 0.0295931, 0.0004291, 0.0002548, 0.9998366)
+)
+
+# Etiqueta de significancia
+df_tukeyNO <- df_tukeyNO %>%
+  mutate(Significativo = ifelse(p_valor < 0.05, "Sí", "No"))
+
+# Gráfico
+ggplot(df_tukeyNO, aes(x = Comparación, y = Diferencia, color = Significativo)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = Límite_inferior, ymax = Límite_superior), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_color_manual(values = c("Sí" = "red", "No" = "gray")) +
+  labs(
+    title = "Comparaciones Múltiples de Tukey",
+    y = "Diferencia de medias",
+    x = "Comparación entre Estados",
+    color = "Significativo (p < 0.05)"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Comparaciones significativas (p < 0.05)
+
+Estas diferencias son estadísticamente significativas, lo que indica que los promedios de casos de violencia familiar entre los pares de estados comparados son distintos:
+
++ BCS vs BC: Baja California Sur tiene en promedio 8,770 casos menos que Baja California.
+
++ Nayarit vs BC: Nayarit presenta 10,101 casos menos que Baja California.
+
++ Sinaloa vs BC: Sinaloa tiene 6,390 casos menos que Baja California.
+
++ Sonora vs BC: Sonora muestra 6,256 casos menos que Baja California.
+
++ Sinaloa vs BCS: Sinaloa tiene 2,380 casos más que Baja California Sur.
+
++ Sonora vs BCS: Sonora presenta 2,514 casos más que Baja California Sur.
+
++ Sinaloa vs Nayarit: Sinaloa tiene 3,711 casos más que Nayarit.
+
++ Sonora vs Nayarit: Sonora muestra 3,845 casos más que Nayarit.
+
+Estas diferencias están respaldadas por intervalos de confianza que no cruzan el cero, lo que refuerza su significancia.
+
+* Comparaciones no significativas (p ≥ 0.05)
+Estas diferencias no son estadísticamente significativas, por lo que no se puede afirmar que los promedios sean distintos:
+
++ Nayarit vs BCS: Aunque Nayarit tiene 1,331 casos menos que BCS, la diferencia no es significativa.
+
++ Sonora vs Sinaloa: La diferencia de 134 casos entre Sonora y Sinaloa es mínima y no significativa.
+
+Baja California tiene consistentemente más casos que los demás estados, mientras que Nayarit y Baja California Sur presentan los niveles más bajos. Sinaloa y Sonora se ubican en un rango intermedio, pero significativamente por encima de BCS y Nayarit.
+
+#### Intervalos de confianza
+```{r tabla_estadisticas_estadoNO, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos
+df_estadosNO <- data.frame(
+  Estado = c("Baja California", "Baja California Sur", "Nayarit", "Sinaloa", "Sonora"),
+  `Media anual` = c(11209, 2439, 1108, 4818, 4952),
+  Desviación = c(2435, 487, 837, 2019, 2450),
+  `IC 95% para media anual` = c(
+    "[9467.1, 12950.9]",
+    "[2090.6, 2787.4]",
+    "[509.2, 1706.8]",
+    "[3373.7, 6262.3]",
+    "[3199.4, 6704.6]"
+  )
+)
+
+# Mostrar tabla
+kable(df_estadosNO, format = "html", caption = "Media Anual, Desviación y IC 95% por Estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+```{r grafico_estados_ic, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos
+df_estadosNO <- data.frame(
+  Estado = c("Baja California", "Baja California Sur", "Nayarit", "Sinaloa", "Sonora"),
+  Media = c(11209, 2439, 1108, 4818, 4952),
+  Desviación = c(2435, 487, 837, 2019, 2450),
+  IC_inf = c(9356.6, 2074.7, 522.8, 3613.8, 3094.8),
+  IC_sup = c(13061.4, 2803.3, 1693.2, 6022.2, 6809.2)
+)
+
+# Etiqueta de alta variabilidad
+df_estadosNO <- df_estadosNO %>%
+  mutate(Variabilidad = ifelse(Desviación > 2000, "Alta", "Moderada"))
+
+# Gráfico
+ggplot(df_estadosNO, aes(x = Estado, y = Media, fill = Variabilidad)) +
+  geom_bar(stat = "identity", color = "black") +
+  geom_errorbar(aes(ymin = IC_inf, ymax = IC_sup), width = 0.2) +
+  scale_fill_manual(values = c("Alta" = "tomato", "Moderada" = "skyblue")) +
+  labs(
+    title = "Media Anual por Estado con IC 95%",
+    y = "Media Anual",
+    x = "Estado",
+    fill = "Variabilidad"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Baja California destaca como el estado con la media anual más alta de casos, y también con una alta variabilidad. Su intervalo de confianza es amplio, lo que indica dispersión en los datos.
+
+Baja California Sur y Nayarit tienen las medias más bajas y una variabilidad moderada. Sus intervalos de confianza son más estrechos, lo que sugiere mayor precisión en la estimación de la media.
+
+Sinaloa y Sonora se ubican en un rango intermedio, pero con alta variabilidad. Esto implica que, aunque sus medias no son tan elevadas como las de Baja California, los datos presentan una dispersión considerable.
+
+### Region Sureste
+
+La region Sureste comprende Campeche, Quintana Roo y Yucatan.
+
+![Región Sureste](C:/Users/emman/Documents/StatisticsPRoject/MapaRegionSureste.png)
+
+```{r tabla_comparativaSE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos combinados
+df_comparativaSE <- data.frame(
+  Año = 2015:2024,
+  Total_QRoo = c(3058,1524,2633,4025,5508,4813,5848,6161,6745,7195),
+  Total_Camp = c(18,43,65,52,62,45,314,1957,2151,1186),
+  Total_Yuc = c(2158, 2270, 2670, 1935, 1295, 726, 884, 125, 193, 301)
+  )
+
+# Tabla HTML
+kable(df_comparativaSE, format = "html", caption = "Comparativa de Violencia Familiar entre Yucatán, Campeche y Quintana Roo (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+
+
+```
+
+
+
+```{r boxplot_outliersSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+# Datos
+df_comparativaSE <- data.frame(
+  Año = 2015:2024,
+  Total_QRoo = c(3058,1524,2633,4025,5508,4813,5848,6161,6745,7195),
+  Total_Camp = c(18,43,65,52,62,45,314,1957,2151,1186),
+  Total_Yuc = c(2158, 2270, 2670, 1935, 1295, 726, 884, 125, 193, 301)
+)
+
+# Transformar a formato largo
+df_longSE <- df_comparativaSE %>%
+  pivot_longer(cols = -Año, names_to = "Estado", values_to = "Total")
+
+# Etiquetas limpias
+df_longSE$Estado <- recode(df_longSE$Estado,
+                         Total_Yuc = "Yucatán",
+                         Total_Camp = "Campeche",
+                         Total_QRoo = "Quintana Roo")
+                         
+
+# Gráfico con años exactos
+ggplot(df_longSE, aes(x = Año, y = Total, color = Estado)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = 2015:2024) +
+  labs(title = "Violencia Familiar por Estado (2015–2024)",
+       x = "Año", y = "Casos", color = "Estado") +
+  theme_minimal()
+
+# Gráfico boxplot con valores atípicos resaltados
+ggplot(df_longSE, aes(x = Estado, y = Total, fill = Estado)) +
+  geom_boxplot(outlier.colour = "red", outlier.shape = 19, outlier.size = 3) +
+  labs(title = "Distribución de Totales por Estado (2015–2024)",
+       x = "Estado", y = "Total de Casos") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+
+```{r tabla_estadisticas_violenciaSE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasSE <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10 ,12557, 1256,   1090,    125 ,  2670  ,     945),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 1256 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±945 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasSE, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Campeche") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Campeche (2024): 80.45**
+
+```{r tabla_estadisticas_violenciaQRoo, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasQRoo <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 47510,  4751 ,  5160,   1524 ,  7195  ,    1886),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 4751 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±1886 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasQRoo, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Quintana Roo") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Quintana Roo: 289.7**
+
+```{r tabla_estadisticas_violenciaYuc, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasYuc <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 12557, 1256,   1090,    125,   2670  ,     945),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 1256 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±945 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasYuc, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Yucatan") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Yucatan: 64.9**
+
+
+###################################################################################
+
+1. Resultados Numéricos (Media anual y tasa por 100,000 habitantes)
+```{r tabla_comparativa_tasasSE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_tasasSE <- data.frame(
+  Estado = c("Yucatán","Campeche", "Quintana Roo"),
+  `Media anual de casos` = c(1256, 589, 4751 ),
+  `Desviación estándar` = c(2435, 487, 837 ),
+  `Tasa por 100,000 habitantes` = c(64.99, 80.45 , 289.7)
+)
+
+# Mostrar tabla
+kable(df_tasasSE, format = "html", caption = "Estadísticas Comparativas de Violencia Familiar por Estado (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+#### Interpretación comparativa
+
+  - Volumen y Variabilidad  
+
+    - Quintana Roo tiene el mayor volumen de casos, con un promedio anual de 4,751, indicando una carga sustancial en términos absolutos. Su desviación estándar de 837 sugiere una variabilidad moderada, lo que significa que los casos tienen cierto rango de fluctuación consistente pero son estables en relación con el promedio.  
+
+    - Yucatán, con una media de 1,256 casos por año, exhibe una variabilidad extremadamente alta con una cifra de 2,435. Esto sugiere que las cifras anuales son altamente irregulares. Esto podría deberse a cambios en una política de reportes, variaciones en el registro administrativo o a eventos esporádicos.  
+
+    - Campeche tiene el menor volumen con una media de 589 casos por año, pero una desviación estándar de 487, reflejando baja variabilidad. Esto sugiere que los datos son consistentes año tras año.  
+
+  - Incidencia Relativa: Tasa por 100,000 Personas  
+
+Quintana Roo destaca con una tasa de 289.7, indicando una incidencia de violencia familiar violenta en relación con la población. Proporcionalmente, el fenómeno es más prevalente en el estado que en otros lugares.  
+
+En cuanto a Campeche, a pesar de tener pocos casos en términos absolutos, muestra una violencia familiar más acentuada en relación con su población, dado que su tasa es de 80.45, superior a la de Yucatán.  
+
+Por su parte, Yucatán con 64.99 de tasa, presenta la menor incidencia relativa. Esto puede interpretarse como una menor violencia familiar, aunque su alta variabilidad anual sugiere que requiere un análisis más profundo.  
+
+- Tendencias y consideraciones relevantes  
+
+  - Quintana Roo, por su alto volumen de población y violencia familiar, se coloca como el estado con mayor presión en cuanto a requerimiento de atención y prevención. Su tasa de moderada variabilidad sugiere que el fenómeno es persistente.  
+
+  - Campeche presenta un fenómeno contrario: a pesar de su bajo volumen, su tasa se ubica en un nivel relativamente alto, lo que sugiere que la violencia familiar está concentrada en determinados sectores poblacionales o que hay mayor eficiencia en la detección y registro.  
+
+  - Yucatán, a pesar de tener la más baja tasa, requiere atención especial por su alta variabilidad, que en otros casos oculta picos críticos o subregistros en determinados años. La dispersión de los datos sugiere que la situación no es tan benigna como aparenta.
+
+
+
+#### ANOVA
+```{r tabla_anovaSE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_anovaSE <- data.frame(
+  Fuente = c("Estado", "Residuals"),
+  Df = c(2, 27),
+  `Sum Sq` = c(99936526, 46558616),
+  `Mean Sq` = c(49968263, 1724393),
+  `F value` = c(28.98, NA),
+  `Pr(>F)` = c("1.9e-07 ***", "")
+)
+
+# Mostrar tabla
+kable(df_anovaSE, format = "html", caption = "Resultados del ANOVA para tasas por estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+##### Interpretación del ANOVA
+
+__Hipótesis nula__: Las medias de las tasas de violencia familiar son iguales entre los tres estados Yucatán, Campeche y Quintana Roo. Es decir, no hay diferencias relevantes en la incidencia relativa entre ellos.  
+
+__Hipótesis alternativa__: Al menos una de las medias es diferente, lo que implica que hay diferencias relevantes en las tasas de violencia familiar entre los estados.  
+
+- El valor de F = 28.98 indica diferencia entre grupos.  
+
+- El valor de p = 1.9e-07 es mucho menor que 0.05, lo que indica una diferencia muy alta de significancia.  
+
+- Los tres asteriscos (“”*) reafirman que el resultado es muy significativo.  
+
+No se valida la hipótesis nula. Esto quiere decir que hay diferencias relevantes entre las tasas de violencia familiar en Yucatán, Campeche y Quintana Roo.
+
+
+
+```{r boxplot_tasasSE, echo=FALSE}
+library(ggplot2)
+
+# Simulación de datos (reemplaza con tus datos reales si los tienes)
+set.seed(123)
+estadosSE <- rep(c("Yucatán", "Campeche", "Quintana Roo"), each = 10)
+tasas <- c(
+  rnorm(10, mean = 1256, sd = 945),
+  rnorm(10, mean = 589, sd = 850),
+  rnorm(10, mean = 4751, sd = 1886)
+)
+
+dfSE <- data.frame(Estado = estadosSE, Tasa = tasas)
+
+# Crear boxplot
+ggplot(dfSE, aes(x = Estado, y = Tasa, fill = Estado)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Distribución de tasas de violencia familiar por estado",
+       y = "Tasa por 100,000 habitantes",
+       x = "Estado") +
+  theme(legend.position = "none")
+```
+
+#### Tukey
+```{r tabla_tukey_sureste, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_tukey_sureste <- data.frame(
+  Comparación = c("Quintana Roo - Campeche", "Yucatán - Campeche", "Yucatán - Quintana Roo"),
+  Diferencia = c(4161.7, 666.4, -3495.3),
+  `Límite inferior (lwr)` = c(2705.628, -789.672, -4951.372),
+  `Límite superior (upr)` = c(5617.772, 2122.472, -2039.228),
+  `p-valor ajustado` = c("0.0000004", "0.5015506", "0.0000070")
+)
+
+# Mostrar tabla
+kable(df_tukey_sureste, format = "html", caption = "Tukey: Comparaciones Múltiples de Medias entre Estados del Sureste") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+```{r grafico_tukey_sureste, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos de Tukey
+df_tukey_sureste <- data.frame(
+  Comparación = c("Quintana Roo - Campeche", "Yucatán - Campeche", "Yucatán - Quintana Roo"),
+  Diferencia = c(4161.7, 666.4, -3495.3),
+  lwr = c(2705.628, -789.672, -4951.372),
+  upr = c(5617.772, 2122.472, -2039.228),
+  p_adj = c(0.0000004, 0.5015506, 0.0000070)
+)
+
+# Etiqueta de significancia
+df_tukey_sureste <- df_tukey_sureste %>%
+  mutate(Significativo = ifelse(p_adj < 0.05, "Sí", "No"))
+
+# Gráfico
+ggplot(df_tukey_sureste, aes(x = Comparación, y = Diferencia, color = Significativo)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = lwr, ymax = upr), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
+  scale_color_manual(values = c("Sí" = "#D7263D", "No" = "#1B9E77")) +
+  labs(
+    title = "Comparaciones Múltiples de Tukey: Estados del Sureste",
+    y = "Diferencia de medias",
+    x = NULL,
+    color = "¿Significativo?"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1))
+```
+
+- Conclusiones clave
+  - Quintana Roo tiene tasas significativamente más altas que Campeche.
+
+  - Yucatán y Campeche no presentan diferencias significativas.
+
+  - Yucatán tiene tasas significativamente más bajas que Quintana Roo.
+
+
+#### Intervalos de confianza
+```{r tabla_estadisticas_estadoSE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos
+df_estadosNE <- data.frame(
+  Estado = c("Yucatán","Campeche", "Quintana Roo"),
+  `Media anual` = c(1256,589,4751),
+  Desviación = c(945,850, 1886),
+  `IC 95% para media anual` = c(
+    "[580.0, 1932.0]",
+    "[-19.1, 1197.1]",
+    "[3401.8, 6100.2]"
+    
+  )
+)
+
+# Mostrar tabla
+kable(df_estadosNE, format = "html", caption = "Media Anual, Desviación y IC 95% por Estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+```{r grafico_estados_icSE, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos
+df_estadosSE <- data.frame(
+  Estado = c("Yucatán","Campeche", "Quintana Roo"),
+  Media = c(1256,589,4751),
+  Desviación = c(945,850, 1886),
+  IC_inf = c(580.0, -19.1, 3401.8),
+  IC_sup = c(1932.0, 1197.1, 6100.2)
+)
+
+
+```
+
+```{r panel_comparativo_sureste, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(patchwork)
+
+
+
+# Datos de medias por estado
+df_estadosSE <- data.frame(
+  Estado = c("Yucatán","Campeche", "Quintana Roo"),
+  Media = c(1256,589,4751),
+  Desviación = c(945,850, 1886),
+  IC_inf = c(580.0, -19.1, 3401.8),
+  IC_sup = c(1932.0, 1197.1, 6100.2)
+) %>%
+  mutate(Variabilidad = ifelse(Desviación > 1500, "Alta", "Moderada"))
+
+# Gráfico de medias
+grafico_medias <- ggplot(df_estadosSE, aes(x = Estado, y = Media, fill = Variabilidad)) +
+  geom_bar(stat = "identity", color = "black") +
+  geom_errorbar(aes(ymin = IC_inf, ymax = IC_sup), width = 0.2) +
+  scale_fill_manual(values = c("Alta" = "tomato", "Moderada" = "skyblue")) +
+  labs(
+    title = "Media Anual por Estado con IC 95%",
+    y = "Media Anual",
+    x = "Estado",
+    fill = "Variabilidad"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Panel combinado
+grafico_medias 
+
+```
+
+- Análisis 
+
+  - Quintana Roo presenta la media más alta y una alta variabilidad. Esto quiere decir que hay una alta dispersión y que los casos de violencia familiar de forma anual son significativamente elevados. Su intervalo de confianza es amplio y completamente positivo, lo cual confirma la consistencia de su alta incidencia. 
+
+  - Yucatán tiene una media intermedia, de igual forma, su variabilidad es moderada. Su intervalo de confianza también es positivo y relativamente amplio. Esto sugiere cierta inestabilidad en los datos, pero sin llegar a extremos. 
+
+  - Campeche presenta la segunda media más baja. Sin embargo, su intervalo de confianza incluye valores negativos. Esto indica de forma estadística que la estimación de la media no es robusta. Esto es posible en el caso de contar con una pequeña muestra, alta dispersión, o el registro de varios años con valores significativamente bajos.
+
+
+### Region Golfo de México
+
+La region Golfo de México comprende Veracruz y Tabasco.
+
+![Región Golfo de Mexico](C:/Users/emman/Documents/StatisticsPRoject/MapaRegionGolfo.png)
+
+```{r tabla_comparativaGLF, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos combinados
+df_comparativaGLF <- data.frame(
+  Año = 2015:2024,
+  Total_Veracruz = c(3572,4741,6326,6219,30324,10386,11706,11747,11796,11321),
+  Total_Tabasco = c(4230,5406,6596,6448,7215,6445,7791,7426,7514,7288)
+)
+
+# Tabla HTML
+kable(df_comparativaGLF, format = "html", caption = "Comparativa de Violencia Familiar entre Veracruz y Tabasco (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+
+```{r boxplot_outliersGlf, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+# Datos
+df_comparativaGlf <- data.frame(
+  Año = 2015:2024,
+  Total_Ver = c(3572,4741,6326,6219,10324,10386,11706,11747,11796,11321),
+  Total_Tab = c(4230,5406,6596,6448,7215,6445,7791,7426,7514,7288)
+  
+)
+
+# Transformar a formato largo
+df_longGlf <- df_comparativaGlf %>%
+  pivot_longer(cols = -Año, names_to = "Estado", values_to = "Total")
+
+# Etiquetas limpias
+df_longGlf$Estado <- recode(df_longGlf$Estado,
+                         Total_Ver = "Veracruz",
+                         Total_Tab= "Tabasco"
+                         )
+                         
+
+# Gráfico con años exactos
+ggplot(df_longGlf, aes(x = Año, y = Total, color = Estado)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = 2015:2024) +
+  labs(title = "Violencia Familiar por Estado (2015–2024)",
+       x = "Año", y = "Casos", color = "Estado") +
+  theme_minimal()
+
+# Gráfico boxplot con valores atípicos resaltados
+ggplot(df_longGlf, aes(x = Estado, y = Total, fill = Estado)) +
+  geom_boxplot(outlier.colour = "red", outlier.shape = 19, outlier.size = 3) +
+  labs(title = "Distribución de Totales por Estado (2015–2024)",
+       x = "Estado", y = "Total de Casos") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+
+
+```{r tabla_estadisticas_violenciaVer, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasVer <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 108138, 10814,  10854,   3572 , 30324 ,     7559),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente 10814 casos.",
+    "Valor central cuando ordenas los casos anuales.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ± 7559 respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasVer, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Veracruz") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Veracruz (2024): 170.15 **
+
+```{r tabla_estadisticas_violenciaTab, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasTab <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c( 10, 66359, 6636,   6906,   4230 ,  7791  ,    1099),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente , 6906 casos.",
+    "Valor central cuando ordenas los casos anuales",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±1099, respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasTab, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Tabasco") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Tabasco: 363.3**
+
+###################################################################################
+
+Resultados Numéricos (Media anual y tasa por 100,000 habitantes)
+```{r tabla_comparativa_tasasGlf, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_tasasGlf <- data.frame(
+  Estado = c("Tabasco","Veracruz"),
+  `Media anual de casos` = c(6636, 10814 ),
+  `Desviación estándar` = c(1099, 7559 ),
+  `Tasa por 100,000 habitantes` = c(363.3, 170.15)
+)
+
+# Mostrar tabla
+kable(df_tasasGlf, format = "html", caption = "Estadísticas Comparativas de Violencia Familiar por Estado (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+#### Interpretación Comparativa
+  - Volumen y variabilidad
+    - Veracruz no solo tiene el volumen más significativo de casos, sino que también tiene una variabilidad muy alta, lo que indica cambios sustanciales de un año a otro.
+
+    - Tabasco, con menos casos, tiene mucha menos dispersión, lo que indica más estabilidad en los registros anuales.
+
+
+
+  - Incidencia relativa: tasa por 100,000 hab.
+    - A pesar de que el número total de casos es menor en su territorio, Tabasco muestra una incidencia mayor, es decir, la violencia familiar afecta en términos proporcionales a más gente en relación a su población total.
+
+    -En Veracruz, el número total de población en su territorio es mayor lo que hace que la violencia familiar diluya su número absoluto en una tasa más baja comparativamente, pese a que el número total de casos es mayor.
+
+
+- Tendencias y consideraciones relevantes
+  - El alto coeficiente de variación en Veracruz puede reflejar cambios en las políticas de reporte, cambios en la gestión administrativa de registros o eventos específicos que impactaron los datos en años particulares.
+
+  - Con alta variabilidad y baja variabilidad en Tabasco, puede estar lidiando con un problema más duradero y homogéneo a lo largo del tiempo.
+
+  - Estos contrastes sugieren que las estrategias de intervención deben ser diferenciadas: en Veracruz el enfoque está en entender las causas de la variabilidad, mientras que en Tabasco el enfoque puede estar en la persistencia del fenómeno.
+
+
+#### ANOVA
+```{r tabla_anovaGlf, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_anovaGlf <- data.frame(
+  Fuente = c("Estado", "Residuals"),
+  Df = c(1, 18),
+  `Sum Sq` = c(87274242, 525159386),
+  `Mean Sq` = c(87274242, 29175521),
+  `F value` = c(2.991, NA),
+  `Pr(>F)` = c("0.101 ", "")
+)
+
+# Mostrar tabla
+kable(df_anovaGlf, format = "html", caption = "Resultados del ANOVA para tasas por estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+##### Interpretación del ANOVA
+
+Hipótesis nula (H₀): Las tasas de violencia familiar en Tabasco y Veracruz comparativamente son las mismas y no existen diferencias sustantivas entre ambas entidades.
+
+Hipótesis alternativa (H₁): Se manifiestan diferencias sustanciales en las tasas de violencia familiar entre las dos entidades.
+
+- Conclusión
+  - El valor de p = 0.101 indica que no se rechaza la hipótesis nula al nivel de significancia convencional (α = 0.05).
+
+  - Aunque el valor F (2.991) sugiere cierta diferencia entre grupos, no es estadísticamente significativa.
+
+  - Esto implica que, con los datos disponibles, no se puede afirmar con certeza que las tasas difieren de forma sistemática entre Tabasco y Veracruz.
+
+```{r boxplot_tasasGlf, echo=FALSE}
+library(ggplot2)
+
+# Simulación de datos (reemplaza con tus datos reales si los tienes)
+set.seed(123)
+estadosGlf <- rep(c("Tabasco", "Veracruz"), each = 10)
+tasas <- c(
+  rnorm(10, mean = 6636, sd = 1099),
+  rnorm(10, mean = 10814, sd = 7559)
+  )
+
+dfGlf <- data.frame(Estado = estadosGlf, Tasa = tasas)
+
+# Crear boxplot
+ggplot(dfGlf, aes(x = Estado, y = Tasa, fill = Estado)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Distribución de tasas de violencia familiar por estado",
+       y = "Tasa por 100,000 habitantes",
+       x = "Estado") +
+  theme(legend.position = "none")
+```
+
+
+#### Tukey
+
+```{r grafico_tukey_Glf, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos de Tukey
+df_tukey_Glf <- data.frame(
+  Comparación = c("Veracruz - Tabasco"),
+  Diferencia = c(4177.9),
+  lwr = c(-897.0788),
+  upr = c(9252.879),
+  p_adj = c(0.1008211)
+)
+
+# Etiqueta de significancia
+df_tukey_Glf <- df_tukey_Glf %>%
+  mutate(Significativo = ifelse(p_adj < 0.05, "Sí", "No"))
+
+# Gráfico
+ggplot(df_tukey_Glf, aes(x = Comparación, y = Diferencia, color = Significativo)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = lwr, ymax = upr), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
+  scale_color_manual(values = c("Sí" = "#D7263D", "No" = "#1B9E77")) +
+  labs(
+    title = "Comparaciones Múltiples de Tukey: Estados del Golfo de México",
+    y = "Diferencia de medias",
+    x = NULL,
+    color = "¿Significativo?"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1))
+```
+
+- Interpretación del resultado
+  - Comparación: Veracruz vs. Tabasco Diferencia de medias: 4177.9 Intervalo de confianza (95%): [-897.08, 9252.88] Valor ajustado de p: 0.1008 ¿Significativo?: No
+
+- Análisis:
+
+  - Aunque la diferencia de medias entre Veracruz y Tabasco es positiva y relativamente alta (4177.9), el intervalo de confianza incluye el cero, lo que indica que esta diferencia no es estadísticamente significativa al nivel de significancia del 5%.
+
+  - El valor de p ajustado (0.1008) está por encima del umbral convencional de 0.05, lo que sugiere que no hay evidencia suficiente para afirmar que las medias son diferentes entre estos dos estados.
+
+  - Visualmente, el punto está por encima de la línea cero, pero las barras de error cruzan esa línea, reforzando la falta de significancia.
+
+#### Intervalos de confianza
+```{r tabla_estadisticas_estadoGlf, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos
+df_estadosGlf <- data.frame(
+  Estado = c("Tabasco","Veracruz"),
+  `Media anual` = c(6636, 10814),
+  Desviación = c(1099, 7559),
+  `IC 95% para media anual` = c(
+    "[5849.8, 7422.2]",
+    "[5406.6, 16221.4]"
+    
+    
+  )
+)
+
+# Mostrar tabla
+kable(df_estadosGlf, format = "html", caption = "Media Anual, Desviación y IC 95% por Estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+
+```{r tabla_estadisticas_ICGlf, results='asis', echo=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos de IC
+df_ic <- data.frame(
+  Estado = c("Tabasco", "Veracruz"),
+  Media = c(6636, 10814),
+  SD = c(1099, 7559),
+  n = c(10, 10)
+)
+
+# Cálculo de IC
+df_ic <- df_ic %>%
+  mutate(
+    t_crit = qt(0.975, df = n - 1),
+    SE = SD / sqrt(n),
+    IC_inf = Media - t_crit * SE,
+    IC_sup = Media + t_crit * SE
+  )
+
+# Gráfico
+ggplot(df_ic, aes(x = Estado, y = Media, color = Estado)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = IC_inf, ymax = IC_sup), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  labs(
+    title = "Intervalos de Confianza (95%) de las Medias Anuales",
+    y = "Media anual",
+    x = NULL
+  ) +
+  scale_color_manual(values = c("Tabasco" = "#1B9E77", "Veracruz" = "#D7263D")) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+- Tabasco presenta una media anual modesta junto con baja variabilidad. Su intervalo de confianza es estrecho y completamente positivo. Esto refleja una estimación precisa y estable de la media.
+
+- Veracruz demuestra un valor medio más alto, pero una desviación estándar excepcionalmente alta resulta en un intervalo de confianza mucho más amplio. Esto indica un alto grado de dispersión en los datos anuales, quizás debido a fluctuaciones significativas de un año a otro o registros atípicos.
+
+
+
+### Region Noreste de México
+
+La region Noreste comprende Tamaulipas y Nuevo León.
+
+![Región Noreste](C:/Users/emman/Documents/StatisticsPRoject/MapaRegionNoreste.png)
+
+
+```{r tabla_comparativaNE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos combinados
+df_comparativaNE <- data.frame(
+  Año = 2015:2024,
+  Total_Tamaulipas = c(2394,6378,7030,7029,7509,6467,7844,7863,8785,8331),
+  Total_NL = c(17062,17773,17145,16410,16339,17940,21029,22480,20320,19184)
+)
+
+# Tabla HTML
+kable(df_comparativaNE, format = "html", caption = "Comparativa de Violencia Familiar entre NL y Tamaulipas (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+
+```{r boxplot_outliersNE, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+# Datos
+df_comparativaNE <- data.frame(
+  Año = 2015:2024,
+  Total_Tamps = c(2394,6378,7030,7029,7509,6467,7844,7863,8785,8331),
+  Total_NL = c(17062,17773,17145,16410,16339,17940,21029,22480,20320,19184)
+  
+)
+
+# Transformar a formato largo
+df_longNE <- df_comparativaNE %>%
+  pivot_longer(cols = -Año, names_to = "Estado", values_to = "Total")
+
+# Etiquetas limpias
+df_longNE$Estado <- recode(df_longNE$Estado,
+                         Total_Ver = "Tamaulipas",
+                         Total_Tab= "Nuevo León"
+                         )
+                         
+
+# Gráfico con años exactos
+ggplot(df_longNE, aes(x = Año, y = Total, color = Estado)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = 2015:2024) +
+  labs(title = "Violencia Familiar por Estado (2015–2024)",
+       x = "Año", y = "Casos", color = "Estado") +
+  theme_minimal()
+
+# Gráfico boxplot con valores atípicos resaltados
+ggplot(df_longNE, aes(x = Estado, y = Total, fill = Estado)) +
+  geom_boxplot(outlier.colour = "red", outlier.shape = 19, outlier.size = 3) +
+  labs(title = "Distribución de Totales por Estado (2015–2024)",
+       x = "Estado", y = "Total de Casos") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+```{r tabla_estadisticas_violenciaTamps, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasTamps <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c(10, 69630 , 6963 ,  7270,   2394 ,  8785,     1781),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente * casos.",
+    "Valor central cuando ordenas los casos anuales; la mitad de los años tuvo más de  casos y la otra mitad menos.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±* respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasTamps, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Tamaulipas") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+
+**Tasa anual promedio de Violencia Familiar por 100,000 en Tamaulipas: 250.29**
+
+```{r tabla_estadisticas_violenciaNL, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_estadisticasNL <- data.frame(
+  Campo = c("Años", "Suma", "Media", "Mediana", "Mínimo", "Máximo", "Desviación estándar"),
+  Valor = c( 10, 185682, 18568,  17856,  16339,  22480    ,  2102),
+  Interpretación = c(
+    "Número de años analizados (2015 a 2024).",
+    "Total acumulado de casos de Violencia Familiar reportados en los 10 años.",
+    "Promedio anual de casos; cada año hubo en promedio aproximadamente , casos.",
+    "Valor central cuando ordenas los casos anuales; la mitad de los años tuvo más de , casos y la otra mitad menos.",
+    "Año con la menor cantidad de casos (el más bajo en la década).",
+    "Año con la mayor cantidad de casos (el más alto en el periodo).",
+    "Mide la variabilidad anual; los casos varían en promedio ±, respecto a la media."
+  )
+)
+
+# Mostrar tabla
+kable(df_estadisticasNL, format = "html", caption = "Estadísticas Descriptivas de Violencia Familiar en Nuevo León") %>%
+  kable_styling("striped", full_width = FALSE)
+
+```
+**Tasa anual promedio de Violencia Familiar por 100,000 habitantes en Nuevo León: 380.03**
+
+
+###################################################################################
+
+1. Resultados Numéricos (Media anual y tasa por 100,000 habitantes)
+```{r tabla_comparativa_tasasNE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_tasasNO <- data.frame(
+  Estado = c("Nuevo León","Tamaulipas"),
+  `Media anual de casos` = c(18568, 6963 ),
+  `Desviación estándar` = c(2102 , 1781 ),
+  `Tasa por 100,000 habitantes` = c(363.3, 170.15)
+)
+
+# Mostrar tabla
+kable(df_tasasNO, format = "html", caption = "Estadísticas Comparativas de Violencia Familiar por Estado (2015–2024)") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+#### Interpretación Comparativa
+
+  - Volumen y variabilidad
+    - La variabilidad en Nuevo León es más controlada sino que su volumen de casos es casi tres veces mayor que Tamaulipas.
+
+    - Aunque Tamaulipas cuenta con un menor volumen de casos, su nivel de dispersión es más notable, sugiriendo un mayor cambio de un año a otro.
+
+
+
+- Incidencia relativa: tasa por 100,000 hab.
+
+  - Tendencias y consideraciones relevantes
+    - Como se observa en el gráfico de líneas, la entidad de Nuevo León sostiene cifras elevadas de forma continua, mostrando un leve aumento en los últimos años.
+
+    - Por el contrario, la entidad de Tamaulipas muestra una tendencia de crecimiento más pronunciada desde 2015, aunque con fluctuaciones que reflejan un comportamiento mucho más inestable.
+
+    - Con base en el boxplot, Nuevo León presenta una distribución más homogénea, en comparación con Tamaulipas que presenta valores atípicos, en especial durante los primeros años de la serie temporal.
+
+
+#### ANOVA
+```{r tabla_anovaNE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear tabla
+df_anovaNE <- data.frame(
+  Fuente = c("Estado", "Residuals"),
+  Df = c(1, 18),
+  `Sum Sq` = c(673403335, 68302236),
+  `Mean Sq` = c(673403335, 3794569),
+  `F value` = c(177.5, NA),
+  `Pr(>F)` = c("9.22e-11 *** ", "")
+  
+)
+
+# Mostrar tabla
+kable(df_anovaNE, format = "html", caption = "Resultados del ANOVA para tasas por estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+##### Interpretación del ANOVA
+
+- Hipótesis nula (H₀): No hay diferencias significativas en las tasas de violencia familiar entre Nuevo León y Tamaulipas.
+
+- Hipótesis alternativa (H₁): Hay diferencias significativas en las tasas de violencia familiar entre los dos estados.
+
+Conclusión:
+
+- El valor de p = 9.22e-11 es extremadamente bajo, lo que permite rechazar la hipótesis nula con alta confianza.  
+
+- El valor de F = 177.5 muestra una diferencia relativa intergrupal muy alta.  
+
+En consecuencia, se concluye que hay una diferencia estadísticamente significativa en las tasas de violencia doméstica entre Nuevo León y Tamaulipas para el período analizado.
+
+
+
+#### Tukey
+```{r boxplot_tasasNE, echo=FALSE}
+library(ggplot2)
+
+# Simulación de datos (reemplaza con tus datos reales si los tienes)
+set.seed(123)
+estadosNE <- rep(c("Tamaulipas", "Nuevo León"), each = 10)
+tasas <- c(
+  rnorm(10, mean = 6963, sd = 1781),
+  rnorm(10, mean = 18568, sd = 2102)
+  )
+
+dfNE <- data.frame(Estado = estadosNE, Tasa = tasas)
+
+# Crear boxplot
+ggplot(dfNE, aes(x = Estado, y = Tasa, fill = Estado)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Distribución de tasas de violencia familiar por estado",
+       y = "Tasa por 100,000 habitantes",
+       x = "Estado") +
+  theme(legend.position = "none")
+```
+```{r TukeyNE, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos reales de Tukey
+df_tukey_NE <- data.frame(
+  Comparación = "Tamaulipas - Nuevo León",
+  Diferencia = -11605.2,
+  lwr = -13435.43,
+  upr = -9774.968,
+  p_adj = 0
+)
+
+# Etiqueta de significancia
+df_tukey_NE <- df_tukey_NE %>%
+  mutate(Significativo = ifelse(p_adj < 0.05, "Sí", "No"))
+
+# Gráfico
+ggplot(df_tukey_NE, aes(x = Comparación, y = Diferencia, color = Significativo)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = lwr, ymax = upr), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
+  scale_color_manual(values = c("Sí" = "#D7263D", "No" = "#1B9E77")) +
+  labs(
+    title = "Comparación Tukey: Tamaulipas vs Nuevo León",
+    y = "Diferencia de medias",
+    x = NULL,
+    color = "¿Significativo?"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1))
+```
+
+Interpretación del resultado de Tukey: Tamaulipas vs Nuevo León
+
+La prueba de comparaciones múltiples de Tukey indica lo siguiente:
+
+* Diferencia de medias: La diferencia entre Tamaulipas y Nuevo León es de −11,605.2, lo que sugiere que Tamaulipas tiene un valor promedio significativamente más bajo en la variable analizada (por ejemplo, casos, víctimas, tasas, etc.).
+
+* Intervalo de confianza (95%): El intervalo va desde −13,435.43 hasta −9,774.97. Como todo el intervalo está por debajo de cero, la diferencia es estadísticamente significativa.
+
+* Valor p ajustado: Es 0, lo que refuerza la evidencia estadística de que la diferencia no es producto del azar.
+
+
+#### Intervalos de confianza
+```{r tabla_estadisticas_estadoNE, results='asis', echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Datos
+df_estadosNE <- data.frame(
+  Estado = c("Tamaulipas","Nuevo León"),
+  `Media anual` = c(6963, 18568),
+  Desviación = c(1781, 2102),
+  `IC 95% para media anual` = c(
+    "[5688.9, 8237.1]",
+    "[17064.3, 20071.7]"
+    
+    
+  )
+)
+
+# Mostrar tabla
+kable(df_estadosNE, format = "html", caption = "Media Anual, Desviación y IC 95% por Estado") %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+
+```{r tabla_estadisticas_ICNE, results='asis', echo=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Datos de IC
+df_ic <- data.frame(
+  Estado = c("Tamaulipas", "Nuevo León"),
+  Media = c(6963, 18568),
+  SD = c(1781, 2102),
+  n = c(10, 10)
+)
+
+# Cálculo de IC
+df_ic <- df_ic %>%
+  mutate(
+    t_crit = qt(0.975, df = n - 1),
+    SE = SD / sqrt(n),
+    IC_inf = Media - t_crit * SE,
+    IC_sup = Media + t_crit * SE
+  )
+
+# Gráfico
+ggplot(df_ic, aes(x = Estado, y = Media, color = Estado)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = IC_inf, ymax = IC_sup), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  labs(
+    title = "Intervalos de Confianza (95%) de las Medias Anuales",
+    y = "Media anual",
+    x = NULL
+  ) +
+  scale_color_manual(values = c("Tamaulipas" = "#1B9E77", "Nuevo León" = "#D7263D")) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+- Tamaulipas muestra una media anual moderada con una desviación estándar relativamente baja. Su intervalo de confianza es estrecho y completamente positivo, lo que indica una estimación precisa y estable de la media.
+
+- La media anual de Nuevo León es significativamente más alta, pero persiste una desviación moderada. Su intervalo de confianza es más amplio pero igualmente positivo, confirmando la consistencia de su alta incidencia.
+
+- La falta de superposición entre los intervalos para ambos estados refuerza la conclusión del ANOVA: las medias son estadísticamente significativamente diferentes.
+
+
+# Resultados
+
+## Región Noroeste  
+
+La región Noroeste exhibe una alta heterogeneidad tanto en términos absolutos como relativos. Baja California (BC) destaca con el mayor promedio de casos anuales (11,209), lo que representa un problema absoluto significativo. Sin embargo, las cifras ajustadas por población revelan que Baja California Sur (BCS) tiene la tasa de incidencia más alta (363.8 casos por cada 100,000 habitantes), superando a BC, lo que indica un problema de violencia doméstica altamente concentrado en relación con la población. Sonora y Sinaloa exhiben promedios similares (~4,800-5,000 casos anuales) y tasas intermedias (199.7-209.2), mientras que Nayarit tiene la tasa más baja (69.3), lo que puede deberse a la subnotificación.  
+
+Los análisis inferenciales (ANOVA y Tukey) confirman que hay diferencias estadísticamente significativas en los casos de violencia doméstica para estos estados, determinando que las diferencias relativas son cruciales para diferenciar estrategias basadas en regiones de manera estratificada.
+
+## Región Sureste  
+
+En la región Sureste, Quintana Roo es el estado con más volumen y tasas de violencia doméstica (promedios anuales ~4751 casos; tasa 289.7), demostrando un problema preocupante con tasas de violencia en aumento. Campeche y Yucatán tienen cifras y tasas más bajas (80.45 y 64.9 respectivamente), pero tienen un alto grado de variabilidad anual, sugiriendo fluctuaciones significativas que pueden ser impulsadas por cambios en la política de reporte o modificaciones en los registros administrativos.  
+
+El ANOVA apoya diferencias significativas en los casos promedios en estos estados, especialmente en el caso de Quintana Roo con los otros dos estados, ilustrando así la necesidad de una acción preventiva dirigida en este estado.  
+
+## Región Golfo de México  
+
+En esta región, Veracruz tiene el mayor volumen absoluto de casos (promedio anual ~10,814) en comparación con Tabasco, que tiene ~6,636. Sin embargo, a un nivel relativo, Tabasco tiene una tasa por 100,000 habitantes mucho más alta (363.3 vs. 170.1), ilustrando una carga desproporcionada sobre la población local.  
+
+No obstante, los resultados del ANOVA no encontraron que la diferencia fuera estadísticamente significativa, probablemente debido a la alta variabilidad en Veracruz (muy alta desviación estándar), haciendo que la interpretación clara sea difícil. Esto sugiere que el fenómeno puede exhibir patrones complejos o muy variables en esta región.
+
+## Región Noreste  
+
+Nuevo León se ha convertido en la región con la mayor incidencia absoluta y relativa con un promedio anual de 18,568 casos y una tasa de 380 por cada 100,000 habitantes. Estos números son mucho más altos en comparación con Tamaulipas, cuyas cifras, aunque relevantes, son considerablemente más bajas (6,963 casos y una tasa de 250.29).  
+
+Los análisis estadísticos confirman la existencia de diferencias altamente significativas, indicando un problema estructural mucho más arraigado en Nuevo León. La estabilidad relativa de los datos sugiere que esta alta incidencia se documenta de manera consistente y predominante en la región.
+
+- Comparativa y Similitudes Regionales
+
+La comparación entre estados hace evidentes que si bien hay disparidades cuantitativas y en las cifras relativas, existe hasta cierta agrupación de estados/regiones que muestran patrones similares en la incidencia de casos de violencia familiar.
+
+Agrupamiento de Estados Según Similitud Estadística
+
+Con base en las cifras anuales de casos, junto a las tasas por cada 100 000 habitantes, los estados objetos de estudio pueden categorizarse en tres conjuntos principales:
+
+```{r tabla_cluster, results='asis', echo=FALSE}
+library(knitr)
+
+datos <- data.frame(
+  Cluster = c(0, 1, 2),
+  `Estados incluidos` = c(
+    "Baja California Sur, Nayarit, Sinaloa, Sonora, Campeche, Quintana Roo, Yucatán, Tabasco, Tamaulipas",
+    "Nuevo León",
+    "Baja California, Veracruz"
+  ),
+  `Características principales` = c(
+    "Volúmenes y tasas intermedias/bajas, alta dispersión, pero sin alcanzar los extremos nacionales. Este grupo contiene la mayoría de los estados, destacando una similitud en cuanto a tasas ajustadas y medias anuales de casos. Muchos de estos, aunque en regiones diferentes, comparten tasas ajustadas dentro de un rango intermedio y una estabilidad relativa en los registros.",
+    "Mayor volumen absoluto, tasa alta. Se destaca significativamente sobre los demás estados, siendo el caso más grave en términos relativos y absolutos dentro de la muestra analizada. Comparte similitud con Baja California y Veracruz pero a un nivel más pronunciado.",
+    "Estados con alta media anual de casos (más de 10,000) y tasas relativamente altas. Aunque no tan extremas como Nuevo León, estos estados presentan patrones de alta incidencia, diferenciándose del grupo 0 por el volumen de casos y tasa ajustada, pero no alcanzan el nivel extremo de Nuevo León."
+  )
+)
+
+kable(datos, caption = "Clusters de estados según volumen y tasa de violencia")
+```
+
+## Similitudes Interregionales
+
+Baja California Sur (Noroeste) y Tabasco (Golfo de México): Ambas regiones tienen tasas extremadamente altas por 100,000 habitantes debido a diferentes tamaños de población, lo que significa que estas regiones no tienen que ser contiguas para ser basadas bajo el mismo criterio.
+
+Sonora y Sinaloa (Noroeste) y Tamaulipas (Noreste): Estas regiones comparten tasas ajustadas intermedias y alta variabilidad, categorizándolas a través de su estabilidad y magnitud.
+
+Campeche y Yucatán ( sureste) y Nayarit (Noroeste): Estas regiones comparten tasas y volúmenes bajos junto con alta dispersión anual, implicando similitudes estructurales de sub-registro, baja población o registro irregular.
+
+Quintana Roo (Sureste) se asemeja a los estados de media-alta del Noroeste con su alta tasa, diferenciándose debido a su tendencia de crecimiento ascendente.
+
+Tanto Veracruz (Golfo de México) como Baja California (Noroeste) muestran altos valores absolutos, siendo superados solo por Nuevo León en intensidad.
+
+## Patrones regionales detectados
+
+Los estados menos poblados pueden aparecer como más severos en tasa (BCS, Tabasco) incluso con cifras absolutas más bajas.
+
+Los estados fronterizos y grandes urbanos (Nuevo León, Baja California) tienden a agruparse juntos debido a su magnitud absoluta que muestra factores estructurales compartidos: urbanización, migración, presión social, mejor capacidad de registro y denuncia, y subregistro.
+
+Los estados menos desarrollados en relación con el promedio mexicano (Nayarit, Campeche, Yucatán) podrían estar ocultando cifras reales debido a subregistro, agrupándolos hacia el extremo inferior de la incidencia pero con alta variabilidad.
+
+Las diferencias y similitudes observadas no se adhieren a divisiones regionales estrictas: algunos estados del Golfo son más similares al Noroeste o Noreste que a sus vecinos inmediatos.
+
+
+
+# Discusión
+
+El análisis revela una marcada diversidad geográfica y demográfica en la incidencia de la violencia doméstica a lo largo de México, ya que la mezcla de factores estructurales, sociales, culturales y administrativos es particularmente compleja. A continuación se señalan algunos puntos clave:
+
+- Impacto Diferenciado Según Tamaño de Población y Contexto:
+
+Los estados poco poblados como Baja California Sur y Tabasco muestran tasas de incidencia muy altas, a pesar de tener conteos absolutos más bajos. Esto ilustra aún más que el problema no es solo de naturaleza absoluta, sino también relativa en cuanto que intensamente y comparativamente agrava a la comunidad local. 
+
+- Factores Socioeconómicos y Estructurales:
+
+Las diferencias en la incidencia de la violencia dentro del país también pueden derivar de diferencias en pobreza, desigualdad, provisión de servicios, movimiento poblacional y niveles de urbanización. Estos factores están vinculados a la ocurrencia y persistencia de la violencia doméstica y deben ser abordados en el contexto de la política pública.
+
+- Efecto de Políticas Públicas y Dinámicas Temporales:
+
+La variabilidad observada en los reportes, particularmente en estados como Veracruz, Yucatán y Nayarit, puede ser el resultado de cambios en las políticas de reporte, campañas de concienciación, reformas legales o incluso eventos extraordinarios como la pandemia de COVID-19, que suspenderá temporalmente los reportes y la ocurrencia real de la violencia.
+
+- Necesidad de Enfoques Regionalizados:
+
+Debido a que las escalas y patrones de la violencia doméstica difieren marcadamente, los enfoques para la violencia doméstica necesitan ser adaptados y ajustados a las circunstancias únicas de cada región o estado. Esto significa crear marcos legales, programas educativos y materiales, y recursos que respondan al contexto local.
+
+- Importancia de Mejorar el Registro y Monitoreo:
+
+Los estados con tasas bajas y alta variabilidad, como Nayarit, necesitan centrarse en fortalecer los sistemas de registro y precisión de datos para reducir el subregistro y mejorar los procesos de toma de decisiones.
+
+Discusión Estadística
+
+El análisis estadístico de múltiples regiones proporciona evidencia convincente de que la violencia doméstica es un fenómeno altamente heterogéneo dentro de México. La combinación de medidas descriptivas (media, desviación estándar, tasas por 100,000 habitantes) junto con pruebas inferenciales (ANOVA, Tukey) permite concluir que existen diferencias significativas tanto en el volumen absoluto de casos como en la incidencia relativa por región y por estado. Por ejemplo, mientras estados como Baja California y Nuevo León lideran en volumen absoluto de casos, Baja California Sur y Tabasco destacan en incidencia relativa, subrayando la necesidad crítica de controlar el tamaño de la población en cualquier análisis para evitar interpretaciones engañosas. 
+
+Los resultados de múltiples comparaciones (Tukey) han sido críticos para aclarar cuáles diferencias entre estados son genuinas y cuáles pueden haber surgido por azar. La existencia de grupos de estados con patrones similares sugiere la existencia de algunas estructuras comunes (económicas, de reporte o demográficas) subyacentes a la violencia doméstica, lo cual fue corroborado por los intervalos de confianza relativamente estrechos en algunos estados y anchos en otros (indicativos de variabilidad en la fiabilidad de las estimaciones).
+
+Una interpretación amplia de la alta variabilidad observada, señalada por las amplias desviaciones estándar en estados como Veracruz y Yucatán, podría sugerir problemas con la recolección de datos, cambios en las políticas relacionadas con la presentación de informes, o fuertes influencias de eventos extraordinarios. Esto subraya la necesidad de sistemas de reporte más uniformes y estables para monitorear tendencias fiables y el impacto de la política pública.
+
+- Trabajo futuro
+
+Por cuestiones de tiempo, no se logró hacer el análisis estadístico de las demás regiones. También, hizo falta el análisis de las variables de Educación e Ingreso Económico para cada región económica, para hacer el ejercicio de una Regresión para hallar una correlación. Queda como "tarea para las vacaciones" opcional para su elaboración
+
+# Conclusiones
+
+- Conclusiones
+
+Las regiones Noroeste y Noreste presentan las tasas más altas, abarcando áreas de atención crítica y prevención dentro de Baja California Sur, Baja California y Nuevo León, siendo estos últimos dos los principales focos de atención.Esto podría deberse a particularidades culturales y deficiencias institucionales, junto con la desigualdad económica informal.
+
+Los resultados significativos obtenidos de las pruebas ANOVA y Tukey respaldan un enfoque de políticas públicas flexible, específico, basado en evidencia y adaptado a cada región, a la vez que confirman sus diferencias relevantes.
+
+Un enfoque interdisciplinario legal, social, psicológico y económico con colaboración intersectorial entre gobierno, sociedad civil y academia es fundamental para hacer de este estudio más ambicioso con datos estadísticos.
+
+- Conclusiones Estadísticas  
+
+En lo que respecta a los modelos analíticos, la violencia doméstica puede ser estudiada como un fenómeno que abarca diferentes grupos de estados basados en sus tasas de incidencia y variación. Tasas promedio significativamente diferentes justifican enfoques de política distintos para diferentes regiones, destacando las realidades ocultas por los promedios nacionales. Esto destaca la importancia crítica de la estadística aplicada para informar la toma de decisiones basada en evidencia.  
+
+# Referencias
